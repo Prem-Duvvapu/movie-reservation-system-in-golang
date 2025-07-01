@@ -5,7 +5,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"/models"
+	"models"
 )
 
 func AuthMiddleware() gin.HandlerFunc {
