@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"models"
-	"services"
+	"movie-reservation-system/models"
+	"movie-reservation-system/services"
 )
 
 type ShowtimeController struct {

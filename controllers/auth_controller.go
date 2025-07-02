@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"models"
-	"services"
+	"movie-reservation-system/models"
+	"movie-reservation-system/services"
 )
 
 type AuthController struct {
@@ -20,14 +20,14 @@ func NewAuthController(authService *services.AuthService) *AuthController {
 
 func (ac *AuthController) SignUp(c *gin.Context) {
 	var user models.User
-	if err := c.ShouldBindJSON(&User); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H("error": err.Error()))
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	newUser, err != ac.AuthService.SignUp(user)
+	newUser, err := ac.AuthService.SignUp(user)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H("error": err.Error()))
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -43,8 +43,8 @@ func (ac *AuthController) Login(c *gin.Context) {
 
 	user, token, err := ac.AuthService.Login(credentials)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": error.Error()})
-		retun
+		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -56,7 +56,7 @@ func (ac *AuthController) Login(c *gin.Context) {
 func (ac *AuthController) PromoteToAdmin(c *gin.Context) {
 	var userID = c.Param("userId")
 	if err := ac.AuthService.PromoteToAdmin(userID); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H("error": err.Error()))
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "User promoted to admin"})

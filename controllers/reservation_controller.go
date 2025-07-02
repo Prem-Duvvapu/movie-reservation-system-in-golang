@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"models"
-	"services"
+	"movie-reservation-system/models"
+	"movie-reservation-system/services"
 )
 
 type ReservationController struct {

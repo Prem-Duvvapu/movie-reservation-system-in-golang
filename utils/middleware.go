@@ -5,7 +5,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"models"
+	"movie-reservation-system/models"
 )
 
 func AuthMiddleware() gin.HandlerFunc {

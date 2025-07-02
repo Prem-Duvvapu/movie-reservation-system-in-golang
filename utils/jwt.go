@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"config"
+	"movie-reservation-system/config"
 )
 
 func GenerateJWTToken(userID string, role string) (string, error) {
