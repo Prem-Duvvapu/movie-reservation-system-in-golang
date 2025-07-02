@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"config"
-	"routes"
+	"movie-reservation-system/config"
+	"movie-reservation-system/routes"
 )
 
 func main() {
@@ -19,5 +19,6 @@ func main() {
 	}
 
 	router := routes.SetupRouter(db)
+	log.Println("Server is running on http://localhost:8080") 
 	router.Run(":8080")
 }

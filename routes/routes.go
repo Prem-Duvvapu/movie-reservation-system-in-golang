@@ -3,19 +3,19 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
-	"controllers"
-	"services"
-	"utils"
+	"movie-reservation-system/controllers"
+	"movie-reservation-system/services"
+	"movie-reservation-system/utils"
 )
 
 func SetupRouter(db *gorm.DB) *gin.Engine {
-	router := gin.default()
+	router := gin.Default()
 
 	// Initialize services
 	authService := services.NewAuthService(db)
-	movieServie := services.NewMovieServie(db)
-	reservationServie := services.NewReservationService(db)
-	showtimeService := services.NewShowtimeServie(db)
+	movieService := services.NewMovieService(db)
+	reservationService := services.NewReservationService(db)
+	showtimeService := services.NewShowtimeService(db)
 
 	// Initialize controllers
 	authController := controllers.NewAuthController(authService)
@@ -28,14 +28,14 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	{
 		public.POST("/signup", authController.SignUp)
 		public.POST("/login", authController.Login)
-		public.GET("/movies", movieContoller.GetMovies)
+		public.GET("/movies", movieController.GetMovies)
 	}
 
 	// Protected routes
 	protected := router.Group("/api")
 	protected.Use(utils.AuthMiddleware())
 	{
-		protected.GET("/user/reservation", reservationController.GetUserReservation)
+		protected.GET("/user/reservation", reservationController.GetUserReservations)
 		protected.POST("/reservations", reservationController.CreateReservation)
 		protected.DELETE("/reservations/:reservationId", reservationController.CancelReservation)
 		protected.GET("/showtimes/:showtimeId/seats", reservationController.GetAvailableSeats)
@@ -44,7 +44,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 
 	// Admin routes
 	admin := router.Group("/api/admin")
-	admin.User(utils.AuthMiddleware(), utils.AdminMiddleware())
+	admin.Use(utils.AuthMiddleware(), utils.AdminMiddleware())
 	{
 		admin.POST("/movies", movieController.CreateMovie)
 		admin.PUT("/movies/:movieId", movieController.UpdateMovie)

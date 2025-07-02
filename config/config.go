@@ -13,7 +13,7 @@ type Config struct {
 	JWTSecret string
 }
 
-func LoadConfg() (*Config, error) {
+func LoadConfig() (*Config, error) {
 	viper.SetConfigFile(".env")
 	err := viper.ReadInConfig()
 

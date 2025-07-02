@@ -4,8 +4,8 @@ import (
 	"errors"
 	"gorm.io/gorm"
 	"github.com/google/uuid"
-	"models"
-	"utils"
+	"movie-reservation-system/models"
+	"movie-reservation-system/utils"
 )
 
 type AuthService struct {

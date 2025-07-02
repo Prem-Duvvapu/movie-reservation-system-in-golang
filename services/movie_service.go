@@ -2,7 +2,7 @@ package services
 
 import (
 	"github.com/google/uuid"
-	"models"
+	"movie-reservation-system/models"
 	"gorm.io/gorm"
 )
 
